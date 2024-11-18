@@ -1,5 +1,3 @@
-import { Link } from "src/links/entities/link.entity";
-import { Site } from "src/sites/entities/site.entity";
 import {
     Column,
     CreateDateColumn,
@@ -8,6 +6,9 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
+
+import { Link } from "../../links/entities/link.entity";
+import { Site } from "../../sites/entities/site.entity";
 
 
 @Entity({ name: 'navigators' })

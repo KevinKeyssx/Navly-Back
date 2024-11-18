@@ -9,8 +9,8 @@ import {
     UpdateDateColumn
 } from "typeorm";
 
-import { Navigator } from '../../navigators/entities/navigator.entity'
-import { Link } from "src/links/entities/link.entity";
+import { Navigator }    from '../../navigators/entities/navigator.entity'
+import { Link }         from "../../links/entities/link.entity";
 
 
 @Entity({ name: 'sites' })

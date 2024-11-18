@@ -11,9 +11,8 @@ import {
 } from "typeorm";
 
 
-import { Navigator } from '../../navigators/entities/navigator.entity'
-import { Website } from "src/websites/entities/website.entity";
-
+import { Navigator }    from '../../navigators/entities/navigator.entity'
+import { Website }      from "../../websites/entities/website.entity";
 
 
 @Entity({ name: 'links' })
