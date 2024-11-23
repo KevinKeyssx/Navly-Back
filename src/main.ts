@@ -27,13 +27,14 @@ import { AppModule } from './app.module';
 		.setVersion( '1.0' )
 		.build();
 
-	const document = SwaggerModule.createDocument( app, config );
+	const document 	= SwaggerModule.createDocument( app, config );
+	const port		= +process.env.PORT_BACK || 3000;
+	const host		= process.env.HOST_BACK;
+
 	SwaggerModule.setup( 'docs', app, document );
 
-	// await app.listen( ENV.LOCAL.PORT_API || 3000 );
-	await app.listen( 3000 );
-	// logger.log( `Application is running on: ${ ENV.LOCAL.HOST_API }:${ ENV.LOCAL.PORT_API }`);
-	// logger.log( `Application connected in : ${ ENV.DATABASE.NAME }:${ ENV.DATABASE.HOST }`);
-	logger.log( `Application is running on: ${ 'localhost' }:${ ':3000' }`);
-	logger.log( `Application connected in : ${ 'navly' }:${ 'porhay.com' }`);
+	await app.listen( port );
+
+	logger.log( `Application is running on: ${ host }:${ port }`);
+	logger.log( `Application connected in : ${ process.env.PGDATABASE }:${ process.env.PGPORT }`);
 })();

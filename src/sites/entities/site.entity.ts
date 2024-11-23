@@ -51,6 +51,13 @@ export class Site {
     order: number;
 
 
+    @Column({
+        type    : 'boolean',
+        default : false
+    })
+    isFavorite: boolean;
+
+
     @ManyToOne(() => Navigator, navigator => navigator.sites, {
         nullable    : false,
         onDelete    : 'CASCADE'
