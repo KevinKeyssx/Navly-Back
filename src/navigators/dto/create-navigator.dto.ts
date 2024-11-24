@@ -1,8 +1,9 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 import {
     IsBoolean,
     IsInt,
+    IsNotEmpty,
     IsOptional,
     IsString,
     IsUrl,
@@ -15,11 +16,10 @@ import {
 
 export class CreateNavigatorDto {
 
-    @ApiProperty({
+    @ApiPropertyOptional({
         description : 'ID del usuario asociado al navegador',
         type        : 'string',
         example     : '12345',
-        required    : false,
     })
     @IsString()
     @IsOptional()
@@ -32,8 +32,9 @@ export class CreateNavigatorDto {
         example     : 'Mi navegador favorito',
     })
     @IsString()
-    @Min( 5 )
-    @Max( 20 )
+    @IsNotEmpty()
+    @MinLength( 5 )
+    @MaxLength( 30 )
     name: string;
 
 
@@ -60,10 +61,11 @@ export class CreateNavigatorDto {
     bgUrl: string;
 
 
-    @ApiProperty({
+    @ApiPropertyOptional({
         description : 'Orden del navegador para priorización',
-        type        : 'integer',
         example     : 1,
+        type        : 'integer',
+        default     : 0,
     })
     @IsInt()
     @Min( 0 )

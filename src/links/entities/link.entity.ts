@@ -1,4 +1,3 @@
-import { Site } from "src/sites/entities/site.entity";
 import {
     Column,
     CreateDateColumn,
@@ -13,6 +12,7 @@ import {
 
 import { Navigator }    from '../../navigators/entities/navigator.entity'
 import { Website }      from "../../websites/entities/website.entity";
+import { Site }         from "../../sites/entities/site.entity";
 
 
 @Entity({ name: 'links' })

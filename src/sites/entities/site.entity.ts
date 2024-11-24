@@ -66,7 +66,7 @@ export class Site {
     navigator: Navigator;
 
 
-    @OneToMany(() => Link, link => link.site)
+    @OneToMany( () => Link, link => link.site )
     links: Link[];
 
 }

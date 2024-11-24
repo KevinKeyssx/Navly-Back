@@ -1,26 +1,60 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException }	from '@nestjs/common';
+import { InjectRepository }					from '@nestjs/typeorm';
+
+import { Repository } from 'typeorm';
+
 import { CreateWebsiteDto } from './dto/create-website.dto';
 import { UpdateWebsiteDto } from './dto/update-website.dto';
+import { Website }			from './entities/website.entity';
+
 
 @Injectable()
 export class WebsitesService {
-  create(createWebsiteDto: CreateWebsiteDto) {
-    return 'This action adds a new website';
-  }
+	constructor(
+		@InjectRepository( Website )
+		private readonly websiteRepository: Repository<Website>,
+	) {}
 
-  findAll() {
-    return `This action returns all websites`;
-  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} website`;
-  }
+	async create( createWebsiteDto: CreateWebsiteDto ): Promise<Website> {
+		const website = this.websiteRepository.create( createWebsiteDto );
+		return await this.websiteRepository.save( website );
+	}
 
-  update(id: number, updateWebsiteDto: UpdateWebsiteDto) {
-    return `This action updates a #${id} website`;
-  }
 
-  remove(id: number) {
-    return `This action removes a #${id} website`;
-  }
+	findAll = async (): Promise<Website[]> => await this.websiteRepository.find();
+
+
+	async findOne( id: string ): Promise<Website> {
+		const website = await this.websiteRepository.findOne({
+			where		: { id },
+		});
+
+		if ( !website ) {
+			throw new NotFoundException( `Website with ID ${id} not found` );
+		}
+
+		return website;
+	}
+
+
+	async update( id: string, updateWebsiteDto: UpdateWebsiteDto ): Promise<Website> {
+		const website = await this.websiteRepository.preload({
+			id,
+			...updateWebsiteDto,
+		});
+
+		if ( !website )
+			throw new NotFoundException(`Website with ID ${id} not found`);
+
+		return await this.websiteRepository.save( website );
+	}
+
+
+	async remove( id: string ): Promise<Website> {
+		const website = await this.findOne( id );
+
+		return await this.websiteRepository.remove( website );
+	}
+
 }

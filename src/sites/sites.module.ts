@@ -4,6 +4,7 @@ import { TypeOrmModule }	from '@nestjs/typeorm';
 import { SitesService }		from './sites.service';
 import { SitesController }	from './sites.controller';
 import { Site }				from './entities/site.entity';
+import { NavigatorsModule } from '../navigators/navigators.module';
 
 
 @Module({
@@ -13,7 +14,9 @@ import { Site }				from './entities/site.entity';
 	imports		: [
 		TypeOrmModule.forFeature([
 			Site
-		])
+		]),
+
+		NavigatorsModule
 	]
 })
 export class SitesModule {}
